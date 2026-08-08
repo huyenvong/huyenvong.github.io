@@ -1,0 +1,22 @@
+{
+  "slug": "thanh-pho-khong-co-nguoi-thanh-cong",
+  "title": "Thành Phố Không Có Người Thành Công",
+  "aliases": [],
+  "authors": [
+    "Huyền Võng"
+  ],
+  "description": "Một thành phố nơi những con người từng thất bại cùng đi tìm ý nghĩa thật sự của thành công, hạnh phúc và giá trị của chính mình.",
+  "genres": [
+    "Hiện đại",
+    "Tâm lý",
+    "Trưởng thành"
+  ],
+  "status": "Sắp ra mắt",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 4,
+  "featured": true,
+  "published": true
+}

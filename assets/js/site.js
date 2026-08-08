@@ -6,7 +6,9 @@
   };
 
   var VALID_THEMES = ["auto", "light", "dark"];
-  var systemDarkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  var systemDarkQuery = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  );
 
   function readStorage(key) {
     try {
@@ -21,6 +23,18 @@
       window.localStorage.setItem(key, value);
     } catch (error) {
       return;
+    }
+  }
+
+  function parseJson(value, fallback) {
+    if (!value) {
+      return fallback;
+    }
+
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      return fallback;
     }
   }
 
@@ -70,11 +84,16 @@
   }
 
   function updateThemeControls(selectedTheme, effectiveTheme) {
-    var themeButtons = document.querySelectorAll("[data-theme-option]");
-    var themeToggles = document.querySelectorAll("[data-theme-toggle]");
+    var themeButtons = document.querySelectorAll(
+      "[data-theme-option]"
+    );
+    var themeToggles = document.querySelectorAll(
+      "[data-theme-toggle]"
+    );
 
     themeButtons.forEach(function (button) {
-      var isActive = button.dataset.themeOption === selectedTheme;
+      var isActive =
+        button.dataset.themeOption === selectedTheme;
 
       button.classList.toggle("is-active", isActive);
       button.setAttribute("aria-pressed", String(isActive));
@@ -93,20 +112,26 @@
   }
 
   function initialiseThemeControls() {
-    document.querySelectorAll("[data-theme-option]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        saveAndApplyTheme(button.dataset.themeOption);
+    document
+      .querySelectorAll("[data-theme-option]")
+      .forEach(function (button) {
+        button.addEventListener("click", function () {
+          saveAndApplyTheme(button.dataset.themeOption);
+        });
       });
-    });
 
-    document.querySelectorAll("[data-theme-toggle]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        var currentTheme = document.documentElement.dataset.theme;
-        var nextTheme = currentTheme === "dark" ? "light" : "dark";
+    document
+      .querySelectorAll("[data-theme-toggle]")
+      .forEach(function (button) {
+        button.addEventListener("click", function () {
+          var currentTheme =
+            document.documentElement.dataset.theme;
+          var nextTheme =
+            currentTheme === "dark" ? "light" : "dark";
 
-        saveAndApplyTheme(nextTheme);
+          saveAndApplyTheme(nextTheme);
+        });
       });
-    });
   }
 
   function closeMobileMenu() {
@@ -146,7 +171,8 @@
     }
 
     toggle.addEventListener("click", function () {
-      var isOpen = toggle.getAttribute("aria-expanded") === "true";
+      var isOpen =
+        toggle.getAttribute("aria-expanded") === "true";
 
       if (isOpen) {
         closeMobileMenu();
@@ -166,7 +192,7 @@
     });
 
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 720) {
+      if (window.innerWidth > 900) {
         closeMobileMenu();
       }
     });
@@ -174,7 +200,9 @@
 
   function closeDisclosure(disclosure) {
     var trigger = disclosure.querySelector("[aria-expanded]");
-    var panel = disclosure.querySelector("[data-disclosure-panel]");
+    var panel = disclosure.querySelector(
+      "[data-disclosure-panel]"
+    );
 
     if (!trigger || !panel) {
       return;
@@ -185,18 +213,23 @@
   }
 
   function initialiseDisclosures() {
-    var disclosures = document.querySelectorAll("[data-disclosure]");
+    var disclosures = document.querySelectorAll(
+      "[data-disclosure]"
+    );
 
     disclosures.forEach(function (disclosure) {
       var trigger = disclosure.querySelector("[aria-expanded]");
-      var panel = disclosure.querySelector("[data-disclosure-panel]");
+      var panel = disclosure.querySelector(
+        "[data-disclosure-panel]"
+      );
 
       if (!trigger || !panel) {
         return;
       }
 
       trigger.addEventListener("click", function () {
-        var isOpen = trigger.getAttribute("aria-expanded") === "true";
+        var isOpen =
+          trigger.getAttribute("aria-expanded") === "true";
 
         disclosures.forEach(function (otherDisclosure) {
           if (otherDisclosure !== disclosure) {
@@ -204,7 +237,10 @@
           }
         });
 
-        trigger.setAttribute("aria-expanded", String(!isOpen));
+        trigger.setAttribute(
+          "aria-expanded",
+          String(!isOpen)
+        );
         panel.hidden = isOpen;
       });
     });
@@ -258,7 +294,9 @@
   }
 
   function temporarilyChangeButtonText(button, text) {
-    var textElement = button.querySelector("[data-button-text]");
+    var textElement = button.querySelector(
+      "[data-button-text]"
+    );
     var originalText;
 
     if (!textElement) {
@@ -274,62 +312,131 @@
   }
 
   function initialiseShareButtons() {
-    document.querySelectorAll("[data-share-button]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        var shareTitle =
-          button.dataset.shareTitle || document.title || "Huyền Võng";
-        var shareText = button.dataset.shareText || "";
-        var shareUrl =
-          button.dataset.shareUrl ||
-          window.location.href.split("#")[0];
+    document
+      .querySelectorAll("[data-share-button]")
+      .forEach(function (button) {
+        button.addEventListener("click", function () {
+          var shareTitle =
+            button.dataset.shareTitle ||
+            document.title ||
+            "Huyền Võng";
+          var shareText = button.dataset.shareText || "";
+          var shareUrl =
+            button.dataset.shareUrl ||
+            window.location.href.split("#")[0];
 
-        if (navigator.share) {
-          navigator
-            .share({
-              title: shareTitle,
-              text: shareText,
-              url: shareUrl
+          if (navigator.share) {
+            navigator
+              .share({
+                title: shareTitle,
+                text: shareText,
+                url: shareUrl
+              })
+              .catch(function (error) {
+                if (
+                  error &&
+                  error.name !== "AbortError"
+                ) {
+                  return;
+                }
+              });
+
+            return;
+          }
+
+          copyText(shareUrl)
+            .then(function () {
+              temporarilyChangeButtonText(
+                button,
+                "Đã sao chép"
+              );
             })
-            .catch(function (error) {
-              if (error && error.name !== "AbortError") {
-                return;
-              }
+            .catch(function () {
+              temporarilyChangeButtonText(
+                button,
+                "Không thể sao chép"
+              );
             });
+        });
+      });
+  }
 
+  function initialiseResumeLinks() {
+    document
+      .querySelectorAll("[data-resume-link]")
+      .forEach(function (link) {
+        var bookSlug = link.dataset.bookSlug;
+        var savedReading;
+        var expectedStart;
+
+        if (!bookSlug) {
           return;
         }
 
-        copyText(shareUrl)
-          .then(function () {
-            temporarilyChangeButtonText(button, "Đã sao chép");
-          })
-          .catch(function () {
-            temporarilyChangeButtonText(button, "Không thể sao chép");
-          });
+        savedReading = parseJson(
+          readStorage("hv:reading:" + bookSlug),
+          null
+        );
+
+        if (
+          !savedReading ||
+          typeof savedReading.url !== "string" ||
+          !savedReading.chapterTitle
+        ) {
+          return;
+        }
+
+        expectedStart =
+          "/truyen/" + bookSlug + "/chuong/";
+
+        if (
+          savedReading.url.indexOf(expectedStart) !== 0 ||
+          !savedReading.url.endsWith(".html")
+        ) {
+          return;
+        }
+
+        link.href = savedReading.url;
+        link.hidden = false;
+        link.setAttribute(
+          "title",
+          "Đọc tiếp: " + savedReading.chapterTitle
+        );
+        link.setAttribute(
+          "aria-label",
+          "Đọc tiếp " + savedReading.chapterTitle
+        );
       });
-    });
   }
 
   function secureExternalLinks() {
-    document.querySelectorAll('a[target="_blank"]').forEach(function (link) {
-      var relValues = (link.getAttribute("rel") || "")
-        .split(/\s+/)
-        .filter(Boolean);
+    document
+      .querySelectorAll('a[target="_blank"]')
+      .forEach(function (link) {
+        var relValues = (
+          link.getAttribute("rel") || ""
+        )
+          .split(/\s+/)
+          .filter(Boolean);
 
-      ["noopener", "noreferrer"].forEach(function (value) {
-        if (relValues.indexOf(value) === -1) {
-          relValues.push(value);
-        }
+        ["noopener", "noreferrer"].forEach(function (value) {
+          if (relValues.indexOf(value) === -1) {
+            relValues.push(value);
+          }
+        });
+
+        link.setAttribute("rel", relValues.join(" "));
       });
-
-      link.setAttribute("rel", relValues.join(" "));
-    });
   }
 
   function updateCurrentYear() {
-    document.querySelectorAll("[data-current-year]").forEach(function (element) {
-      element.textContent = String(new Date().getFullYear());
-    });
+    document
+      .querySelectorAll("[data-current-year]")
+      .forEach(function (element) {
+        element.textContent = String(
+          new Date().getFullYear()
+        );
+      });
   }
 
   function handleSystemThemeChange() {
@@ -343,8 +450,10 @@
     initialiseMobileMenu();
     initialiseDisclosures();
     initialiseShareButtons();
+    initialiseResumeLinks();
     secureExternalLinks();
     updateCurrentYear();
+
     updateThemeControls(
       getSavedTheme(),
       getEffectiveTheme(getSavedTheme())
@@ -353,14 +462,24 @@
 
   applyTheme(getSavedTheme());
 
-  if (typeof systemDarkQuery.addEventListener === "function") {
-    systemDarkQuery.addEventListener("change", handleSystemThemeChange);
-  } else if (typeof systemDarkQuery.addListener === "function") {
+  if (
+    typeof systemDarkQuery.addEventListener === "function"
+  ) {
+    systemDarkQuery.addEventListener(
+      "change",
+      handleSystemThemeChange
+    );
+  } else if (
+    typeof systemDarkQuery.addListener === "function"
+  ) {
     systemDarkQuery.addListener(handleSystemThemeChange);
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initialiseSite);
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialiseSite
+    );
   } else {
     initialiseSite();
   }

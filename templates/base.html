@@ -34,11 +34,17 @@
   <script src="/assets/js/site.js"></script>
 </head>
 <body class="{{body_class}}" {{body_attributes}}>
-  <a class="skip-link" href="#main-content">Chuyển đến nội dung chính</a>
+  <a class="skip-link" href="#main-content">
+    Chuyển đến nội dung chính
+  </a>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="site-brand" href="/" aria-label="Về trang chủ {{site_name}}">
+      <a
+        class="site-brand"
+        href="/"
+        aria-label="Về trang chủ {{site_name}}"
+      >
         <img
           class="site-logo"
           src="{{logo_path}}"
@@ -52,6 +58,8 @@
       <nav class="site-nav" aria-label="Điều hướng chính">
         <a class="nav-link" href="/">Trang chủ</a>
         <a class="nav-link" href="/#tac-pham">Tác phẩm</a>
+        <a class="nav-link" href="/the-loai/">Thể loại</a>
+        <a class="nav-link" href="/tac-gia/">Tác giả</a>
         <a class="nav-link" href="/gioi-thieu/">Giới thiệu</a>
 
         <button
@@ -102,6 +110,8 @@
     <div class="container mobile-menu-inner">
       <a class="nav-link" href="/">Trang chủ</a>
       <a class="nav-link" href="/#tac-pham">Tác phẩm</a>
+      <a class="nav-link" href="/the-loai/">Thể loại</a>
+      <a class="nav-link" href="/tac-gia/">Tác giả</a>
       <a class="nav-link" href="/gioi-thieu/">Giới thiệu</a>
       <a class="nav-link" href="/lien-he/">Liên hệ</a>
     </div>
@@ -125,6 +135,8 @@
       </div>
 
       <nav class="footer-nav" aria-label="Liên kết cuối trang">
+        <a href="/the-loai/">Thể loại</a>
+        <a href="/tac-gia/">Tác giả</a>
         <a href="/gioi-thieu/">Giới thiệu</a>
         <a href="/lien-he/">Liên hệ</a>
         <a href="/chinh-sach-rieng-tu/">Riêng tư</a>

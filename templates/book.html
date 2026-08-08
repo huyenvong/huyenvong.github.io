@@ -1,1 +1,99 @@
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Đường dẫn">
+    <ol>
+      <li><a href="/">Trang chủ</a></li>
+      <li aria-current="page">{{book_title}}</li>
+    </ol>
+  </nav>
 
+  <article>
+    <section class="book-detail" aria-labelledby="book-title">
+      <div class="book-detail-cover">
+        <img
+          src="{{book_cover_url}}"
+          width="600"
+          height="900"
+          alt="Bìa truyện {{book_title}}"
+        >
+      </div>
+
+      <div>
+        <h1 class="book-detail-title" id="book-title">
+          {{book_title}}
+        </h1>
+
+        <p class="book-detail-author">
+          Tác giả: <strong>{{book_author}}</strong>
+        </p>
+
+        <div class="book-detail-meta" aria-label="Thông tin truyện">
+          <span class="badge badge-primary">{{book_status}}</span>
+          {{genre_badges}}
+        </div>
+
+        {{book_aliases}}
+
+        <div class="book-description">
+          {{book_description}}
+        </div>
+
+        <div class="button-row">
+          {{reading_buttons}}
+
+          <button
+            class="secondary-button"
+            type="button"
+            data-share-button
+            data-share-title="{{book_title_attribute}}"
+            data-share-text="{{book_share_text_attribute}}"
+            data-share-url="{{canonical_url}}"
+          >
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="m8.6 10.7 6.8-4.1"></path>
+              <path d="m8.6 13.3 6.8 4.1"></path>
+            </svg>
+            <span data-button-text>Chia sẻ</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    {{affiliate_content}}
+
+    <section
+      class="section"
+      id="danh-sach-chuong"
+      aria-labelledby="chapters-heading"
+    >
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="chapters-heading">
+            Danh sách chương
+          </h2>
+          <p class="section-description">
+            {{chapter_count}} chương đã được đăng.
+          </p>
+        </div>
+      </div>
+
+      <div class="chapter-panel">
+        <ol class="chapter-list">
+          {{chapter_items}}
+        </ol>
+      </div>
+    </section>
+  </article>
+</div>

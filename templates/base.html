@@ -1,1 +1,139 @@
+<!doctype html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="{{theme_color}}">
+  <meta name="description" content="{{meta_description}}">
+  <meta name="author" content="{{author}}">
+  <meta name="robots" content="{{robots}}">
+  <title>{{page_title}}</title>
 
+  <link rel="canonical" href="{{canonical_url}}">
+  <link rel="icon" type="image/png" href="{{logo_url}}">
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <meta property="og:site_name" content="{{site_name}}">
+  <meta property="og:type" content="{{og_type}}">
+  <meta property="og:locale" content="{{locale}}">
+  <meta property="og:title" content="{{page_title}}">
+  <meta property="og:description" content="{{meta_description}}">
+  <meta property="og:url" content="{{canonical_url}}">
+  <meta property="og:image" content="{{social_image_url}}">
+  <meta property="og:image:alt" content="{{social_image_alt}}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{page_title}}">
+  <meta name="twitter:description" content="{{meta_description}}">
+  <meta name="twitter:image" content="{{social_image_url}}">
+
+  {{head_extra}}
+  {{structured_data}}
+
+  <script src="/assets/js/site.js"></script>
+</head>
+<body class="{{body_class}}" {{body_attributes}}>
+  <a class="skip-link" href="#main-content">Chuyển đến nội dung chính</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/" aria-label="Về trang chủ {{site_name}}">
+        <img
+          class="site-logo"
+          src="{{logo_path}}"
+          width="40"
+          height="40"
+          alt=""
+        >
+        <span class="site-name">{{site_name}}</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Điều hướng chính">
+        <a class="nav-link" href="/">Trang chủ</a>
+        <a class="nav-link" href="/#tac-pham">Tác phẩm</a>
+        <a class="nav-link" href="/gioi-thieu/">Giới thiệu</a>
+
+        <button
+          class="icon-button"
+          type="button"
+          data-theme-toggle
+          aria-label="Đổi chế độ màu"
+          title="Đổi chế độ màu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.42 1.42"></path>
+            <path d="m17.65 17.65 1.42 1.42"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.35 17.65-1.42 1.42"></path>
+            <path d="m19.07 4.93-1.42 1.42"></path>
+          </svg>
+        </button>
+
+        <button
+          class="icon-button menu-toggle"
+          type="button"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Mở menu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <nav
+    class="mobile-menu"
+    id="mobile-menu"
+    data-mobile-menu
+    aria-label="Điều hướng trên điện thoại"
+    hidden
+  >
+    <div class="container mobile-menu-inner">
+      <a class="nav-link" href="/">Trang chủ</a>
+      <a class="nav-link" href="/#tac-pham">Tác phẩm</a>
+      <a class="nav-link" href="/gioi-thieu/">Giới thiệu</a>
+      <a class="nav-link" href="/lien-he/">Liên hệ</a>
+    </div>
+  </nav>
+
+  {{after_header}}
+
+  <main class="{{main_class}}" id="main-content">
+    {{main_content}}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-title">{{site_name}}</p>
+        <p class="footer-description">{{tagline}}</p>
+        <p class="footer-copyright">
+          © {{copyright_start_year}}–<span data-current-year>{{current_year}}</span>
+          {{publisher}}. Nội dung thuộc bản quyền của tác giả và chủ sở hữu tương ứng.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Liên kết cuối trang">
+        <a href="/gioi-thieu/">Giới thiệu</a>
+        <a href="/lien-he/">Liên hệ</a>
+        <a href="/chinh-sach-rieng-tu/">Riêng tư</a>
+        <a href="/ban-quyen/">Bản quyền</a>
+        <a href="/tiet-lo-affiliate/">Affiliate</a>
+      </nav>
+    </div>
+  </footer>
+
+  {{page_scripts}}
+</body>
+</html>

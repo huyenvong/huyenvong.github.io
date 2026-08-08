@@ -1,5 +1,5 @@
 ---
-title: Chương 1: Bầu Trời Hiển Thị
+title: "Chương 1: Bầu Trời Hiển Thị"
 date: 2026-08-08
 published: true
 ---

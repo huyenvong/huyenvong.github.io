@@ -1,0 +1,18 @@
+{
+  "name": "Huyền Võng",
+  "short_name": "Huyền Võng",
+  "tagline": "Không gian đọc truyện của Huyền Võng",
+  "description": "Website đọc truyện chính thức của Huyền Võng, nơi đăng tải các tác phẩm và chương truyện mới nhất.",
+  "url": "https://huyenvong.github.io",
+  "language": "vi",
+  "locale": "vi_VN",
+  "author": "Huyền Võng",
+  "publisher": "Huyền Võng",
+  "contact_email": "",
+  "logo": "/assets/images/logo.png",
+  "default_cover": "/assets/images/default-cover.png",
+  "social_image": "/assets/images/social-cover.jpg",
+  "copyright_start_year": 2026,
+  "theme_color": "#17132b",
+  "background_color": "#faf8f5"
+}

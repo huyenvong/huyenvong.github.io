@@ -1,0 +1,22 @@
+{
+  "slug": "100-sai-lam-truoc-tuoi-30",
+  "title": "100 Sai Lầm Trước Tuổi 30",
+  "aliases": [],
+  "authors": [
+    "Huyền Võng"
+  ],
+  "description": "Một hành trình nhìn lại những lựa chọn sai, bài học đắt giá và trải nghiệm trưởng thành trước tuổi ba mươi. Không phải để tiếc nuối, mà để hiểu rằng mỗi sai lầm đều có thể trở thành một bước tiến.",
+  "genres": [
+    "Kỹ năng sống",
+    "Trưởng thành",
+    "Tản văn"
+  ],
+  "status": "Sắp ra mắt",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 5,
+  "featured": true,
+  "published": true
+}

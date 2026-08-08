@@ -9,6 +9,7 @@ import math
 import re
 import shutil
 import sys
+import unicodedata
 from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import urlparse
@@ -76,6 +77,10 @@ def clean_output():
         shutil.rmtree(OUTPUT_DIR)
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def is_missing(value):
+    return value is None or value == ""
 
 
 def parse_scalar(value):
@@ -148,6 +153,19 @@ def parse_front_matter(text, source_name):
     return metadata, content.strip()
 
 
+def slugify(value):
+    value = str(value or "").strip().lower()
+    value = value.replace("đ", "d")
+    value = unicodedata.normalize("NFD", value)
+    value = "".join(
+        character
+        for character in value
+        if unicodedata.category(character) != "Mn"
+    )
+    value = re.sub(r"[^a-z0-9]+", "-", value)
+    return value.strip("-")
+
+
 def safe_url(value):
     value = str(value or "").strip()
 
@@ -181,16 +199,13 @@ def render_inline(text):
         attributes = ""
 
         if external:
-            attributes = (
-                ' target="_blank" rel="noopener noreferrer"'
-            )
+            attributes = ' target="_blank" rel="noopener noreferrer"'
 
         tokens[token] = (
             f'<a href="{html.escape(destination, quote=True)}"'
             f"{attributes}>"
             f"{html.escape(label)}</a>"
         )
-
         return token
 
     raw_text = re.sub(
@@ -353,7 +368,9 @@ def fill_template(template_text, values):
             str(value if value is not None else ""),
         )
 
-    unresolved = sorted(set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}", result)))
+    unresolved = sorted(
+        set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}", result))
+    )
 
     if unresolved:
         raise RuntimeError(
@@ -402,19 +419,19 @@ def short_description(value, maximum=160):
 
 
 def count_words(value):
-    return len(re.findall(r"\b[\wÀ-ỹ]+\b", str(value or ""), re.UNICODE))
+    return len(
+        re.findall(r"\b[\wÀ-ỹ]+\b", str(value or ""), re.UNICODE)
+    )
 
 
 def reading_minutes(word_count):
     return max(1, math.ceil(word_count / 250))
 
 
-def normalise_slug(value):
-    return str(value or "").strip().lower()
-
-
 def is_valid_slug(value):
-    return bool(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", value))
+    return bool(
+        re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", str(value or ""))
+    )
 
 
 def render_base(base_template, site, values):
@@ -463,6 +480,7 @@ def load_templates():
         "chapter",
         "page",
         "404",
+        "listing",
     ]
     templates = {}
 
@@ -470,7 +488,9 @@ def load_templates():
         path = TEMPLATES_DIR / f"{name}.html"
 
         if not path.exists():
-            raise RuntimeError(f"Thiếu template: {path.relative_to(ROOT)}")
+            raise RuntimeError(
+                f"Thiếu template: {path.relative_to(ROOT)}"
+            )
 
         templates[name] = load_text(path)
 
@@ -497,8 +517,10 @@ def validate_site_config(site):
     ]
 
     for field in required_fields:
-        if field not in site or site[field] in {"", None}:
-            raise RuntimeError(f"config/site.json thiếu trường: {field}")
+        if field not in site or is_missing(site[field]):
+            raise RuntimeError(
+                f"config/site.json thiếu trường: {field}"
+            )
 
     parsed_url = urlparse(site["url"])
 
@@ -613,11 +635,24 @@ def load_chapters(book_directory):
     return chapters
 
 
+def clean_string_list(values):
+    if not isinstance(values, list):
+        return []
+
+    cleaned = []
+
+    for value in values:
+        text = str(value or "").strip()
+
+        if text and text not in cleaned:
+            cleaned.append(text)
+
+    return cleaned
+
+
 def load_books():
     if not CONTENT_DIR.exists():
-        raise RuntimeError(
-            "Chưa có thư mục content/truyen"
-        )
+        raise RuntimeError("Chưa có thư mục content/truyen")
 
     books = []
     used_slugs = set()
@@ -646,7 +681,7 @@ def load_books():
         required_fields = [
             "slug",
             "title",
-            "author",
+            "authors",
             "description",
             "genres",
             "status",
@@ -656,10 +691,11 @@ def load_books():
             "updated_date",
             "order",
         ]
+
         missing_fields = [
             field
             for field in required_fields
-            if field not in info or info[field] in {"", None}
+            if field not in info or is_missing(info[field])
         ]
 
         if missing_fields:
@@ -669,7 +705,7 @@ def load_books():
             )
             continue
 
-        slug = normalise_slug(info["slug"])
+        slug = str(info["slug"]).strip().lower()
 
         if not is_valid_slug(slug):
             report_error(
@@ -679,7 +715,8 @@ def load_books():
 
         if slug != book_directory.name:
             report_error(
-                f"{info_path.relative_to(ROOT)}: slug phải giống tên thư mục"
+                f"{info_path.relative_to(ROOT)}: "
+                "slug phải giống tên thư mục"
             )
             continue
 
@@ -687,9 +724,20 @@ def load_books():
             report_error(f"Trùng slug truyện: {slug}")
             continue
 
-        if not isinstance(info["genres"], list):
+        authors = clean_string_list(info["authors"])
+        genres = clean_string_list(info["genres"])
+
+        if not authors:
             report_error(
-                f"{info_path.relative_to(ROOT)}: genres phải là danh sách"
+                f"{info_path.relative_to(ROOT)}: "
+                "authors phải có ít nhất một tác giả"
+            )
+            continue
+
+        if not genres:
+            report_error(
+                f"{info_path.relative_to(ROOT)}: "
+                "genres phải có ít nhất một thể loại"
             )
             continue
 
@@ -704,7 +752,11 @@ def load_books():
         chapters = load_chapters(book_directory)
 
         info["slug"] = slug
-        info["aliases"] = info.get("aliases", [])
+        info["authors"] = authors
+        info["genres"] = genres
+        info["aliases"] = clean_string_list(
+            info.get("aliases", [])
+        )
         info["featured"] = bool(info.get("featured", False))
         info["chapters"] = chapters
         info["directory"] = book_directory
@@ -729,10 +781,8 @@ def load_books():
 
 def public_cover_url(site, book):
     if book["cover_exists"]:
-        return (
-            f"/truyen/{book['slug']}/"
-            f"{str(book['cover']).replace(chr(92), '/')}"
-        )
+        cover_path = str(book["cover"]).replace("\\", "/")
+        return f"/truyen/{book['slug']}/{cover_path}"
 
     return site["default_cover"]
 
@@ -764,10 +814,7 @@ def render_affiliate(affiliate, placement):
 
         placements = item.get("placements", ["all"])
 
-        if (
-            "all" not in placements
-            and placement not in placements
-        ):
+        if "all" not in placements and placement not in placements:
             continue
 
         title = str(item.get("title", "")).strip()
@@ -794,7 +841,7 @@ def render_affiliate(affiliate, placement):
         return ""
 
     disclosure = html.escape(
-        affiliate.get("disclosure", ""),
+        affiliate.get("disclosure", "")
     )
 
     return (
@@ -809,12 +856,13 @@ def render_affiliate(affiliate, placement):
 def create_book_card(site, book):
     book_url = f"/truyen/{book['slug']}/"
     cover_url = public_cover_url(site, book)
-    genres = ", ".join(str(genre) for genre in book["genres"])
-    aliases = " ".join(str(alias) for alias in book.get("aliases", []))
+    genres = ", ".join(book["genres"])
+    authors = ", ".join(book["authors"])
+    aliases = " ".join(book.get("aliases", []))
     search_text = " ".join(
         [
             book["title"],
-            book["author"],
+            authors,
             genres,
             aliases,
             book["description"],
@@ -847,7 +895,7 @@ def create_book_card(site, book):
     </h3>
 
     <p class="book-card-author">
-      {html.escape(book['author'])}
+      {html.escape(authors)}
     </p>
 
     <p class="book-card-meta">
@@ -859,7 +907,7 @@ def create_book_card(site, book):
 """.strip()
 
 
-def create_home(site, affiliate, templates, books):
+def create_home(site, templates, books):
     book_cards = "\n".join(
         create_book_card(site, book) for book in books
     )
@@ -904,7 +952,10 @@ def create_home(site, affiliate, templates, books):
                 short_description(site["description"]),
                 quote=True,
             ),
-            "canonical_url": html.escape(site["url"], quote=True),
+            "canonical_url": html.escape(
+                site["url"],
+                quote=True,
+            ),
             "social_image_url": html.escape(
                 absolute_url(site, site["social_image"]),
                 quote=True,
@@ -922,11 +973,31 @@ def create_home(site, affiliate, templates, books):
     write_text(OUTPUT_DIR / "index.html", html_output)
 
 
+def create_author_links(book):
+    links = []
+
+    for author in book["authors"]:
+        author_slug = slugify(author)
+        links.append(
+            f'<a href="/tac-gia/{html.escape(author_slug, quote=True)}/">'
+            f"<strong>{html.escape(author)}</strong></a>"
+        )
+
+    return ", ".join(links)
+
+
 def create_genre_badges(book):
-    return "\n".join(
-        f'<span class="badge">{html.escape(str(genre))}</span>'
-        for genre in book["genres"]
-    )
+    badges = []
+
+    for genre in book["genres"]:
+        genre_slug = slugify(genre)
+        badges.append(
+            f'<a class="badge" '
+            f'href="/the-loai/{html.escape(genre_slug, quote=True)}/">'
+            f"{html.escape(genre)}</a>"
+        )
+
+    return "\n".join(badges)
 
 
 def create_aliases(book):
@@ -938,7 +1009,7 @@ def create_aliases(book):
     return (
         '<p class="book-detail-author">'
         "Tên khác: "
-        + html.escape(", ".join(str(alias) for alias in aliases))
+        + html.escape(", ".join(aliases))
         + "</p>"
     )
 
@@ -960,9 +1031,12 @@ def create_chapter_items(book):
         )
         items.append(
             '<li class="chapter-item">'
-            f'<a class="chapter-link" href="{html.escape(chapter_url, quote=True)}">'
-            f'<span class="chapter-title">{html.escape(chapter["title"])}</span>'
-            f'<time class="chapter-date" datetime="{html.escape(chapter["date"], quote=True)}">'
+            f'<a class="chapter-link" '
+            f'href="{html.escape(chapter_url, quote=True)}">'
+            f'<span class="chapter-title">'
+            f'{html.escape(chapter["title"])}</span>'
+            f'<time class="chapter-date" '
+            f'datetime="{html.escape(chapter["date"], quote=True)}">'
             f'{html.escape(display_date(chapter["date"]))}</time>'
             "</a></li>"
         )
@@ -985,11 +1059,14 @@ def create_reading_buttons(book):
     )
 
     return (
-        f'<a class="primary-button" href="{html.escape(first_url, quote=True)}">'
+        f'<a class="primary-button" '
+        f'href="{html.escape(first_url, quote=True)}">'
         "Đọc từ đầu"
         "</a>"
-        f'<a class="secondary-button" href="{html.escape(first_url, quote=True)}" '
-        f'data-resume-link data-book-slug="{html.escape(book["slug"], quote=True)}" '
+        f'<a class="secondary-button" '
+        f'href="{html.escape(first_url, quote=True)}" '
+        f'data-resume-link '
+        f'data-book-slug="{html.escape(book["slug"], quote=True)}" '
         "hidden>Đọc tiếp</a>"
     )
 
@@ -1008,7 +1085,7 @@ def create_book_page(site, affiliate, templates, book):
                 book["title"],
                 quote=True,
             ),
-            "book_author": html.escape(book["author"]),
+            "book_authors": create_author_links(book),
             "book_status": html.escape(book["status"]),
             "book_cover_url": html.escape(
                 cover_url,
@@ -1024,7 +1101,10 @@ def create_book_page(site, affiliate, templates, book):
                 short_description(book["description"]),
                 quote=True,
             ),
-            "canonical_url": html.escape(canonical, quote=True),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
             "affiliate_content": render_affiliate(
                 affiliate,
                 "book",
@@ -1042,10 +1122,17 @@ def create_book_page(site, affiliate, templates, book):
         "url": canonical,
         "image": absolute_cover,
         "inLanguage": book["language"],
-        "author": {
-            "@type": "Person",
-            "name": book["author"],
-        },
+        "author": [
+            {
+                "@type": "Person",
+                "name": author,
+                "url": absolute_url(
+                    site,
+                    f"/tac-gia/{slugify(author)}/",
+                ),
+            }
+            for author in book["authors"]
+        ],
         "genre": book["genres"],
         "datePublished": book["published_date"],
         "dateModified": book["updated_date"],
@@ -1062,7 +1149,10 @@ def create_book_page(site, affiliate, templates, book):
                 short_description(book["description"]),
                 quote=True,
             ),
-            "canonical_url": html.escape(canonical, quote=True),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
             "og_type": "article",
             "social_image_url": html.escape(
                 absolute_cover,
@@ -1072,16 +1162,15 @@ def create_book_page(site, affiliate, templates, book):
                 f"Bìa truyện {book['title']}",
                 quote=True,
             ),
-            "structured_data": create_structured_data(book_schema),
+            "structured_data": create_structured_data(
+                book_schema
+            ),
             "main_content": main_content,
         },
     )
 
     destination = (
-        OUTPUT_DIR
-        / "truyen"
-        / book["slug"]
-        / "index.html"
+        OUTPUT_DIR / "truyen" / book["slug"] / "index.html"
     )
     write_text(destination, html_output)
 
@@ -1104,12 +1193,15 @@ def navigation_link(book, chapter, direction):
         if is_previous
         else "data-next-chapter"
     )
-    direction_text = "Chương trước" if is_previous else "Chương sau"
+    direction_text = (
+        "Chương trước" if is_previous else "Chương sau"
+    )
 
     return (
         f'<a class="chapter-navigation-link{css_class}" '
         f'href="{html.escape(url, quote=True)}" {data_attribute}>'
-        f'<span class="chapter-navigation-direction">{direction_text}</span>'
+        f'<span class="chapter-navigation-direction">'
+        f"{direction_text}</span>"
         f'<span class="chapter-navigation-title">'
         f'{html.escape(chapter["title"])}</span>'
         "</a>"
@@ -1134,6 +1226,7 @@ def create_chapter_page(
     cover_url = public_cover_url(site, book)
     absolute_cover = absolute_url(site, cover_url)
     word_total = count_words(chapter["content"])
+    authors_text = ", ".join(book["authors"])
 
     main_content = fill_template(
         templates["chapter"],
@@ -1154,7 +1247,10 @@ def create_chapter_page(
                 f"trên {site['name']}.",
                 quote=True,
             ),
-            "canonical_url": html.escape(canonical, quote=True),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
             "chapter_date_display": html.escape(
                 display_date(chapter["date"])
             ),
@@ -1192,10 +1288,13 @@ def create_chapter_page(
             "name": book["title"],
             "url": absolute_url(site, book_url),
         },
-        "author": {
-            "@type": "Person",
-            "name": book["author"],
-        },
+        "author": [
+            {
+                "@type": "Person",
+                "name": author,
+            }
+            for author in book["authors"]
+        ],
     }
 
     body_attributes = (
@@ -1208,7 +1307,7 @@ def create_chapter_page(
 
     meta_description = short_description(
         f"{chapter['title']} thuộc truyện {book['title']} "
-        f"của tác giả {book['author']}. Đọc truyện tại {site['name']}."
+        f"của {authors_text}. Đọc truyện tại {site['name']}."
     )
 
     html_output = render_base(
@@ -1216,13 +1315,17 @@ def create_chapter_page(
         site,
         {
             "page_title": html.escape(
-                f"{chapter['title']} – {book['title']} | {site['name']}"
+                f"{chapter['title']} – "
+                f"{book['title']} | {site['name']}"
             ),
             "meta_description": html.escape(
                 meta_description,
                 quote=True,
             ),
-            "canonical_url": html.escape(canonical, quote=True),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
             "og_type": "article",
             "social_image_url": html.escape(
                 absolute_cover,
@@ -1287,6 +1390,244 @@ def create_all_book_pages(site, affiliate, templates, books):
             )
 
 
+def build_taxonomy_groups(books, field):
+    groups = {}
+    names_by_slug = {}
+
+    for book in books:
+        for name in book[field]:
+            item_slug = slugify(name)
+
+            if not item_slug:
+                report_error(
+                    f"Không thể tạo đường dẫn cho: {name}"
+                )
+                continue
+
+            existing_name = names_by_slug.get(item_slug)
+
+            if existing_name and existing_name != name:
+                report_error(
+                    f"Hai tên tạo cùng đường dẫn '{item_slug}': "
+                    f"'{existing_name}' và '{name}'"
+                )
+                continue
+
+            names_by_slug[item_slug] = name
+
+            if item_slug not in groups:
+                groups[item_slug] = {
+                    "slug": item_slug,
+                    "name": name,
+                    "books": [],
+                }
+
+            groups[item_slug]["books"].append(book)
+
+    return dict(
+        sorted(
+            groups.items(),
+            key=lambda item: item[1]["name"].lower(),
+        )
+    )
+
+
+def create_taxonomy_index_content(groups, root_path):
+    if not groups:
+        return (
+            '<div class="empty-state">'
+            "<p>Chưa có dữ liệu để hiển thị.</p>"
+            "</div>"
+        )
+
+    items = []
+
+    for group in groups.values():
+        group_url = f"/{root_path}/{group['slug']}/"
+        items.append(
+            '<li class="chapter-item">'
+            f'<a class="chapter-link" '
+            f'href="{html.escape(group_url, quote=True)}">'
+            f'<span class="chapter-title">'
+            f'{html.escape(group["name"])}</span>'
+            f'<span class="chapter-date">'
+            f'{len(group["books"])} truyện</span>'
+            "</a></li>"
+        )
+
+    return (
+        '<div class="chapter-panel">'
+        '<ul class="chapter-list">'
+        + "\n".join(items)
+        + "</ul></div>"
+    )
+
+
+def render_listing_page(
+    site,
+    templates,
+    title,
+    description,
+    canonical_path,
+    breadcrumb_items,
+    listing_content,
+):
+    canonical = absolute_url(site, canonical_path)
+
+    main_content = fill_template(
+        templates["listing"],
+        {
+            "breadcrumb_items": breadcrumb_items,
+            "listing_title": html.escape(title),
+            "listing_description": html.escape(description),
+            "listing_content": listing_content,
+        },
+    )
+
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": title,
+        "description": description,
+        "url": canonical,
+        "inLanguage": site["language"],
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": site["name"],
+            "url": site["url"],
+        },
+    }
+
+    return render_base(
+        templates["base"],
+        site,
+        {
+            "page_title": html.escape(
+                f"{title} | {site['name']}"
+            ),
+            "meta_description": html.escape(
+                short_description(description),
+                quote=True,
+            ),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
+            "social_image_url": html.escape(
+                absolute_url(site, site["social_image"]),
+                quote=True,
+            ),
+            "structured_data": create_structured_data(schema),
+            "main_content": main_content,
+        },
+    )
+
+
+def create_taxonomy_pages(site, templates, books, taxonomy):
+    if taxonomy == "genres":
+        root_path = "the-loai"
+        index_title = "Thể loại truyện"
+        index_description = (
+            "Khám phá các tác phẩm trên Huyền Võng "
+            "được sắp xếp theo thể loại."
+        )
+        item_label = "Thể loại"
+    else:
+        root_path = "tac-gia"
+        index_title = "Tác giả"
+        index_description = (
+            "Khám phá các tác phẩm trên Huyền Võng "
+            "được sắp xếp theo tác giả."
+        )
+        item_label = "Tác giả"
+
+    groups = build_taxonomy_groups(books, taxonomy)
+    sitemap_items = []
+
+    index_content = create_taxonomy_index_content(
+        groups,
+        root_path,
+    )
+    index_html = render_listing_page(
+        site=site,
+        templates=templates,
+        title=index_title,
+        description=index_description,
+        canonical_path=f"/{root_path}/",
+        breadcrumb_items=(
+            f'<li aria-current="page">{html.escape(index_title)}</li>'
+        ),
+        listing_content=index_content,
+    )
+
+    write_text(
+        OUTPUT_DIR / root_path / "index.html",
+        index_html,
+    )
+    sitemap_items.append(
+        {
+            "url": f"/{root_path}/",
+            "updated_date": date.today().isoformat(),
+        }
+    )
+
+    for group in groups.values():
+        group_title = f"{item_label}: {group['name']}"
+        group_description = (
+            f"Danh sách {len(group['books'])} truyện thuộc "
+            f"{item_label.lower()} {group['name']} trên {site['name']}."
+        )
+        book_cards = "\n".join(
+            create_book_card(site, book)
+            for book in group["books"]
+        )
+        listing_content = (
+            '<section class="section" aria-label="Danh sách truyện">'
+            '<div class="book-grid">'
+            + book_cards
+            + "</div></section>"
+        )
+        group_path = f"/{root_path}/{group['slug']}/"
+        breadcrumb_items = (
+            f'<li><a href="/{root_path}/">'
+            f"{html.escape(index_title)}</a></li>"
+            f'<li aria-current="page">'
+            f'{html.escape(group["name"])}</li>'
+        )
+
+        group_html = render_listing_page(
+            site=site,
+            templates=templates,
+            title=group_title,
+            description=group_description,
+            canonical_path=group_path,
+            breadcrumb_items=breadcrumb_items,
+            listing_content=listing_content,
+        )
+
+        write_text(
+            OUTPUT_DIR
+            / root_path
+            / group["slug"]
+            / "index.html",
+            group_html,
+        )
+        sitemap_items.append(
+            {
+                "url": group_path,
+                "updated_date": max(
+                    (
+                        str(book["updated_date"])
+                        for book in group["books"]
+                    ),
+                    default=date.today().isoformat(),
+                ),
+            }
+        )
+
+    return sitemap_items
+
+
 def create_content_pages(site, templates):
     pages = []
 
@@ -1301,12 +1642,15 @@ def create_content_pages(site, templates):
         )
 
         title = str(metadata.get("title", "")).strip()
-        description = str(metadata.get("description", "")).strip()
+        description = str(
+            metadata.get("description", "")
+        ).strip()
         slug = page_path.stem.lower()
 
         if not title or not description:
             report_error(
-                f"{page_path.relative_to(ROOT)} thiếu title hoặc description"
+                f"{page_path.relative_to(ROOT)} "
+                "thiếu title hoặc description"
             )
             continue
 
@@ -1324,7 +1668,9 @@ def create_content_pages(site, templates):
             {
                 "page_heading": html.escape(title),
                 "page_summary": html.escape(description),
-                "page_content": markdown_to_html(markdown_content),
+                "page_content": markdown_to_html(
+                    markdown_content
+                ),
             },
         )
 
@@ -1361,7 +1707,9 @@ def create_content_pages(site, templates):
                     absolute_url(site, site["social_image"]),
                     quote=True,
                 ),
-                "structured_data": create_structured_data(schema),
+                "structured_data": create_structured_data(
+                    schema
+                ),
                 "main_content": main_content,
             },
         )
@@ -1396,7 +1744,10 @@ def create_404(site, templates):
                 "Trang bạn đang tìm không tồn tại.",
                 quote=True,
             ),
-            "canonical_url": html.escape(canonical, quote=True),
+            "canonical_url": html.escape(
+                canonical,
+                quote=True,
+            ),
             "robots": "noindex, follow",
             "social_image_url": html.escape(
                 absolute_url(site, site["social_image"]),
@@ -1418,7 +1769,7 @@ def create_robots(site):
     write_text(OUTPUT_DIR / "robots.txt", content)
 
 
-def create_sitemap(site, books, pages):
+def create_sitemap(site, books, pages, taxonomy_pages):
     urls = [
         {
             "url": "/",
@@ -1427,6 +1778,7 @@ def create_sitemap(site, books, pages):
     ]
 
     urls.extend(pages)
+    urls.extend(taxonomy_pages)
 
     for book in books:
         urls.append(
@@ -1452,14 +1804,19 @@ def create_sitemap(site, books, pages):
     for item in urls:
         entries.append(
             "  <url>\n"
-            f"    <loc>{xml_escape(absolute_url(site, item['url']))}</loc>\n"
-            f"    <lastmod>{xml_escape(item['updated_date'])}</lastmod>\n"
+            f"    <loc>"
+            f"{xml_escape(absolute_url(site, item['url']))}"
+            f"</loc>\n"
+            f"    <lastmod>"
+            f"{xml_escape(str(item['updated_date']))}"
+            f"</lastmod>\n"
             "  </url>"
         )
 
     sitemap = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '<urlset '
+        'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "\n".join(entries)
         + "\n</urlset>\n"
     )
@@ -1487,12 +1844,41 @@ def main():
         print("Kiểm tra nội dung truyện:")
         books = load_books()
 
-        create_home(site, affiliate, templates, books)
-        create_all_book_pages(site, affiliate, templates, books)
+        create_home(site, templates, books)
+        create_all_book_pages(
+            site,
+            affiliate,
+            templates,
+            books,
+        )
+
+        taxonomy_pages = []
+        taxonomy_pages.extend(
+            create_taxonomy_pages(
+                site,
+                templates,
+                books,
+                "genres",
+            )
+        )
+        taxonomy_pages.extend(
+            create_taxonomy_pages(
+                site,
+                templates,
+                books,
+                "authors",
+            )
+        )
+
         pages = create_content_pages(site, templates)
         create_404(site, templates)
         create_robots(site)
-        create_sitemap(site, books, pages)
+        create_sitemap(
+            site,
+            books,
+            pages,
+            taxonomy_pages,
+        )
         create_nojekyll()
 
     except RuntimeError as error:
@@ -1511,7 +1897,10 @@ def main():
         print("\nWebsite chưa được tạo vì còn lỗi.")
         return 1
 
-    print("\n✓ Website đã được tạo thành công trong thư mục _site")
+    print(
+        "\n✓ Website đã được tạo thành công "
+        "trong thư mục _site"
+    )
     return 0
 
 

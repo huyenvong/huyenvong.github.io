@@ -216,7 +216,7 @@
 
 .chapter-heading {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Cambria, "Times New Roman", Times, serif;
   font-size: clamp(2rem, 6vw, 3.3rem);
   line-height: 1.25;
 }
@@ -245,7 +245,7 @@
 .chapter-content {
   overflow-wrap: break-word;
   color: var(--color-text);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Cambria, "Times New Roman", Times, serif;
   font-size: var(--reader-font-size);
   line-height: var(--reader-line-height);
   transition:

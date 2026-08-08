@@ -1,1 +1,19 @@
-
+{
+  "slug": "thien-vong-thang-duy",
+  "title": "Thiên Võng Thăng Duy",
+  "aliases": [],
+  "author": "Huyền Võng",
+  "description": "Năm 3278, nhân loại đã chiếm hơn 300 tinh hệ. AI không còn là công cụ và mỗi hành tinh đều được kết nối vào một hệ thống gọi là Thiên Võng. Mọi người nghĩ đây là internet, nhưng thực tế nó là một sinh vật đã sống hơn 12 tỷ năm.",
+  "genres": [
+    "Khoa học viễn tưởng",
+    "Huyền huyễn"
+  ],
+  "status": "Đang sáng tác",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 1,
+  "featured": true,
+  "published": true
+}

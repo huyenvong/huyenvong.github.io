@@ -1,0 +1,22 @@
+{
+  "slug": "nhat-ky-365-ngay-truong-thanh",
+  "title": "Nhật Ký 365 Ngày Trưởng Thành",
+  "aliases": [],
+  "authors": [
+    "Huyền Võng"
+  ],
+  "description": "Một hành trình kéo dài 365 ngày, ghi lại những thay đổi nhỏ bé nhưng quan trọng trên con đường trưởng thành, từ cách suy nghĩ, đối diện với thất bại đến việc học cách chịu trách nhiệm cho cuộc đời mình.",
+  "genres": [
+    "Nhật ký",
+    "Tản văn",
+    "Trưởng thành"
+  ],
+  "status": "Sắp ra mắt",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 3,
+  "featured": true,
+  "published": true
+}

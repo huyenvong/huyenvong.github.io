@@ -1,1 +1,64 @@
+<div class="container">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <p class="hero-kicker">Website đọc truyện chính thức</p>
+      <h1 class="hero-title" id="hero-title">{{site_name}}</h1>
+      <p class="hero-description">{{site_description}}</p>
+    </div>
+  </section>
 
+  <section
+    class="section"
+    id="tac-pham"
+    data-search-root
+    aria-labelledby="books-heading"
+  >
+    <div class="section-header">
+      <div>
+        <h2 class="section-title" id="books-heading">Tác phẩm</h2>
+        <p class="section-description">
+          Khám phá các tác phẩm đang được đăng tải tại {{site_name}}.
+        </p>
+      </div>
+
+      <div class="search-box">
+        <label class="visually-hidden" for="book-search">
+          Tìm kiếm truyện
+        </label>
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+
+        <input
+          class="search-input"
+          id="book-search"
+          type="search"
+          inputmode="search"
+          placeholder="Tìm tên truyện, tác giả, thể loại…"
+          autocomplete="off"
+          enterkeyhint="search"
+          data-search-input
+        >
+
+        <p
+          class="search-status"
+          data-search-status
+          aria-live="polite"
+        >
+          {{book_count}} truyện đang được hiển thị.
+        </p>
+      </div>
+    </div>
+
+    <div class="book-grid">
+      {{book_cards}}
+
+      <div class="empty-state" data-search-empty hidden>
+        <p>Không tìm thấy truyện phù hợp.</p>
+        <p>Hãy thử một tên truyện, tác giả hoặc thể loại khác.</p>
+      </div>
+    </div>
+  </section>
+</div>

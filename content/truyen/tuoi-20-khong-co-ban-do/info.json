@@ -1,0 +1,22 @@
+{
+  "slug": "tuoi-20-khong-co-ban-do",
+  "title": "Tuổi 20 Không Có Bản Đồ",
+  "aliases": [],
+  "authors": [
+    "Huyền Võng"
+  ],
+  "description": "Tuổi hai mươi là hành trình bước vào thế giới rộng lớn khi trong tay chưa có một tấm bản đồ hoàn chỉnh. Một tác phẩm về những lựa chọn, mất phương hướng, va vấp và quá trình tự tìm ra con đường của chính mình.",
+  "genres": [
+    "Tản văn",
+    "Trưởng thành",
+    "Kỹ năng sống"
+  ],
+  "status": "Sắp ra mắt",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 2,
+  "featured": true,
+  "published": true
+}

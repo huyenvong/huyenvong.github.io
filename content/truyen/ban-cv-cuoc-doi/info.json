@@ -1,0 +1,22 @@
+{
+  "slug": "ban-cv-cuoc-doi",
+  "title": "Bản CV Cuộc Đời",
+  "aliases": [],
+  "authors": [
+    "Huyền Võng"
+  ],
+  "description": "Nếu cuộc đời là một bản CV, điều gì thật sự đáng được ghi lại? Một tác phẩm về công việc, ước mơ, thất bại và những giá trị không thể đo bằng chức danh hay thành tích.",
+  "genres": [
+    "Hiện đại",
+    "Tâm lý",
+    "Trưởng thành"
+  ],
+  "status": "Sắp ra mắt",
+  "language": "vi",
+  "cover": "images/cover.png",
+  "published_date": "2026-08-08",
+  "updated_date": "2026-08-08",
+  "order": 6,
+  "featured": true,
+  "published": true
+}

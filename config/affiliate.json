@@ -1,5 +1,14 @@
 {
-  "enabled": false,
-  "disclosure": "Một số liên kết trên website có thể là liên kết tiếp thị. Huyền Võng có thể nhận được một khoản hoa hồng nhỏ mà bạn không phải trả thêm chi phí.",
-  "items": []
+  "enabled": true,
+  "disclosure": "Đây là liên kết tiếp thị liên kết. Nếu bạn mua hàng qua link này, Huyền Võng có thể nhận được một khoản hoa hồng nhỏ mà bạn không phải trả thêm bất kỳ chi phí nào.",
+  "items": [
+    {
+      "title": "Mua hàng qua Shopee để ủng hộ Huyền Võng",
+      "url": "https://s.shopee.vn/3qMI5k4Mnr",
+      "button_text": "Đi qua link Shopee",
+      "placements": [
+        "chapter"
+      ]
+    }
+  ]
 }

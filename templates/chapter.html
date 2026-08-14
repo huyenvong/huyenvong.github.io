@@ -41,7 +41,10 @@
             <path d="M10 17h10"></path>
             <circle cx="8" cy="17" r="2"></circle>
           </svg>
-          <span class="reader-control-label">Tùy chỉnh</span>
+
+          <span class="reader-control-label">
+            Tùy chỉnh
+          </span>
         </button>
 
         <div
@@ -51,7 +54,9 @@
           hidden
         >
           <div class="reader-setting-group">
-            <span class="reader-setting-title">Giao diện</span>
+            <span class="reader-setting-title">
+              Giao diện
+            </span>
 
             <div class="reader-setting-options">
               <button
@@ -84,7 +89,9 @@
           </div>
 
           <div class="reader-setting-group">
-            <span class="reader-setting-title">Cỡ chữ</span>
+            <span class="reader-setting-title">
+              Cỡ chữ
+            </span>
 
             <div class="reader-setting-options four-options">
               <button
@@ -130,7 +137,9 @@
           </div>
 
           <div class="reader-setting-group">
-            <span class="reader-setting-title">Khoảng cách dòng</span>
+            <span class="reader-setting-title">
+              Khoảng cách dòng
+            </span>
 
             <div class="reader-setting-options">
               <button
@@ -166,7 +175,9 @@
           </div>
 
           <div class="reader-setting-group">
-            <span class="reader-setting-title">Chiều rộng trang đọc</span>
+            <span class="reader-setting-title">
+              Chiều rộng trang đọc
+            </span>
 
             <div class="reader-setting-options">
               <button
@@ -230,7 +241,11 @@
           <path d="m8.6 10.7 6.8-4.1"></path>
           <path d="m8.6 13.3 6.8 4.1"></path>
         </svg>
-        <span class="reader-control-label" data-button-text>
+
+        <span
+          class="reader-control-label"
+          data-button-text
+        >
           Chia sẻ
         </span>
       </button>
@@ -245,24 +260,47 @@
       aria-label="Đường dẫn"
     >
       <ol>
-        <li><a href="/">Trang chủ</a></li>
-        <li><a href="{{book_url}}">{{book_title}}</a></li>
-        <li aria-current="page">{{chapter_title}}</li>
+        <li>
+          <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+          <a href="{{book_url}}">
+            {{book_title}}
+          </a>
+        </li>
+
+        <li aria-current="page">
+          {{chapter_title}}
+        </li>
       </ol>
     </nav>
 
     <article>
       <header class="chapter-header">
-        <a class="chapter-book-link" href="{{book_url}}">
+        <a
+          class="chapter-book-link"
+          href="{{book_url}}"
+        >
           {{book_title}}
         </a>
 
-        <h1 class="chapter-heading">{{chapter_title}}</h1>
+        <h1 class="chapter-heading">
+          {{chapter_title}}
+        </h1>
 
         <p class="chapter-meta">
-          <span>Đăng ngày {{chapter_date_display}}</span>
-          <span>{{word_count}} từ</span>
-          <span>Khoảng {{reading_time}} phút đọc</span>
+          <span>
+            Đăng ngày {{chapter_date_display}}
+          </span>
+
+          <span>
+            {{word_count}} từ
+          </span>
+
+          <span>
+            Khoảng {{reading_time}} phút đọc
+          </span>
         </p>
       </header>
 
@@ -270,11 +308,12 @@
         {{chapter_content}}
       </div>
 
-      <div class="chapter-end" aria-label="Hết chương">
+      <div
+        class="chapter-end"
+        aria-label="Hết chương"
+      >
         Hết chương
       </div>
-
-      {{affiliate_content}}
 
       <nav
         class="chapter-navigation"
@@ -300,6 +339,72 @@
 
         {{next_chapter_link}}
       </nav>
+
+      <aside
+        class="reader-support"
+        aria-labelledby="reader-support-title"
+      >
+        <span
+          class="reader-support-icon"
+          aria-hidden="true"
+        >
+          ☕
+        </span>
+
+        <h2
+          class="reader-support-title"
+          id="reader-support-title"
+        >
+          Đồng hành cùng Huyền Võng
+        </h2>
+
+        <p class="reader-support-story">
+          Nghe đồn Huyền Võng cao hơn mét tám,
+          cơ bụng tám múi, đẹp trai có thừa nhưng
+          vẫn bị từ chối vì người ta chỉ thích tiền.
+          Khổ nỗi tác giả sống ẩn dật, trong túi
+          chẳng có gì ngoài những câu chuyện đang
+          viết dở.
+        </p>
+
+        <p class="reader-support-note">
+          Truyện vẫn luôn được đọc miễn phí. Nếu
+          chương này khiến bạn thấy đáng thời gian,
+          bạn có thể mời Huyền Võng một ly cà phê
+          để tiếp thêm động lực viết chương mới.
+        </p>
+
+        <details class="reader-support-details">
+          <summary class="reader-support-toggle">
+            Mời tác giả một ly cà phê
+          </summary>
+
+          <div class="reader-support-qr-wrap">
+            <img
+              class="reader-support-qr"
+              src="/assets/images/donate-qr.jpeg"
+              alt="Mã QR chuyển khoản ủng hộ Huyền Võng"
+              width="815"
+              height="1086"
+              loading="lazy"
+            >
+
+            <p class="reader-support-transfer">
+              Khi chuyển khoản, bạn có thể ghi:
+              <strong>Tặng Huyền Võng</strong>
+            </p>
+          </div>
+        </details>
+
+        <p class="reader-support-thanks">
+          Không ủng hộ tài chính cũng không sao —
+          việc bạn đọc, chia sẻ và quay lại chờ
+          chương tiếp theo đã là một sự ủng hộ
+          đáng quý.
+        </p>
+      </aside>
+
+      {{affiliate_content}}
     </article>
   </div>
 </div>

@@ -1175,7 +1175,47 @@ def create_book_page(site, affiliate, templates, book):
     write_text(destination, html_output)
 
 
-def navigation_link(book, chapter, direction):
+def get_chapter_affiliate_url(affiliate):
+    if not affiliate.get("enabled", False):
+        return ""
+
+    items = affiliate.get("items", [])
+
+    if not isinstance(items, list):
+        return ""
+
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+
+        placements = item.get("placements", ["all"])
+
+        if "all" not in placements and "chapter" not in placements:
+            continue
+
+        url = safe_url(item.get("url", ""))
+
+        if url:
+            return url
+
+    return ""
+
+
+def render_chapter_affiliate_note(affiliate, affiliate_url):
+    if not affiliate_url:
+        return ""
+
+    disclosure = html.escape(affiliate.get("disclosure", ""))
+
+    return (
+        '<p class="affiliate-disclosure chapter-affiliate-note">'
+        "Khi bấm “Chương sau”, một trang Shopee sẽ mở ở tab mới. "
+        + disclosure
+        + "</p>"
+    )
+
+
+def navigation_link(book, chapter, direction, affiliate_url=""):
     if chapter is None:
         return (
             '<span class="chapter-navigation-link disabled" '
@@ -1197,9 +1237,19 @@ def navigation_link(book, chapter, direction):
         "Chương trước" if is_previous else "Chương sau"
     )
 
+    affiliate_attributes = ""
+
+    if affiliate_url and not is_previous:
+        affiliate_attributes = (
+            f' data-affiliate-url="{html.escape(affiliate_url, quote=True)}"'
+            ' onclick="window.open(this.dataset.affiliateUrl,'
+            "'_blank','noopener,noreferrer')\""
+        )
+
     return (
         f'<a class="chapter-navigation-link{css_class}" '
-        f'href="{html.escape(url, quote=True)}" {data_attribute}>'
+        f'href="{html.escape(url, quote=True)}" {data_attribute}'
+        f"{affiliate_attributes}>"
         f'<span class="chapter-navigation-direction">'
         f"{direction_text}</span>"
         f'<span class="chapter-navigation-title">'
@@ -1227,6 +1277,9 @@ def create_chapter_page(
     absolute_cover = absolute_url(site, cover_url)
     word_total = count_words(chapter["content"])
     authors_text = ", ".join(book["authors"])
+    chapter_affiliate_url = (
+        get_chapter_affiliate_url(affiliate) if next_chapter else ""
+    )
 
     main_content = fill_template(
         templates["chapter"],
@@ -1259,9 +1312,14 @@ def create_chapter_page(
             "chapter_content": markdown_to_html(
                 chapter["content"]
             ),
-            "affiliate_content": render_affiliate(
+            "affiliate_content": (
+                render_affiliate(affiliate, "chapter")
+                if next_chapter is None
+                else ""
+            ),
+            "chapter_affiliate_note": render_chapter_affiliate_note(
                 affiliate,
-                "chapter",
+                chapter_affiliate_url,
             ),
             "previous_chapter_link": navigation_link(
                 book,
@@ -1272,6 +1330,7 @@ def create_chapter_page(
                 book,
                 next_chapter,
                 "next",
+                chapter_affiliate_url,
             ),
         },
     )

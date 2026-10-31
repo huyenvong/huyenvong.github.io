@@ -2,302 +2,85 @@
 title: "Chương 1: Bầu Trời Hiển Thị"
 date: 2026-08-08
 published: true
----
-
-Thành phố Hà Đông.
-
+Năm 3278.
+Thành phố số 9 – khu Hà Đông cũ.
 22 giờ 47 phút.
-
 Mưa.
-
-Những giọt nước va vào lớp kính dày của tòa nhà Thiên Cơ Technologies, tạo nên âm thanh lộp bộp đều đặn.
-
-Trong văn phòng tầng ba mươi sáu, chỉ còn một màn hình vẫn sáng.
-
-"Lâm Dạ."
-
-Hai mươi ba tuổi.
-
-Kỹ sư trí tuệ nhân tạo.
-
-Anh ngồi dựa lưng vào ghế, hai mắt đỏ ngầu vì đã thức gần ba mươi tiếng.
-
-Trên màn hình là hàng triệu dòng dữ liệu đang cuộn liên tục.
-
+Những giọt nước gõ xuống lớp kính dày của tòa nhà Thiên Cơ Technologies, đều đặn như nhịp tay của một người đang mất kiên nhẫn.
+Trên tầng ba mươi sáu, cả văn phòng đã tắt đèn. Chỉ còn một màn hình vẫn sáng.
+Lâm Dạ, hai mươi ba tuổi, kỹ sư trí tuệ nhân tạo, ngồi dựa lưng vào chiếc ghế đã mòn đệm. Hai mắt anh đỏ ngầu vì gần ba mươi tiếng không ngủ.
+Nhân loại đã chiếm hơn ba trăm tinh hệ. Mọi hành tinh đều được nối vào một mạng lưới duy nhất mang tên Thiên Võng.
+Ai cũng nghĩ đó chỉ là một dạng internet khổng lồ.
+Trên màn hình, hàng triệu dòng dữ liệu cuộn xuống như thác.
 Neural Kernel v9.72
-
 Error...
-
 Memory overflow...
-
 Self-modifying process detected...
-
 Lâm Dạ nhíu mày.
-
-"Không đúng..."
-
-Anh gõ liên tục.
-
-Bàn phím vang lên những tiếng lách cách dồn dập.
-
-Mười phút sau.
-
-Lỗi vẫn còn.
-
-Không những không biến mất, đoạn chương trình kia còn đang...
-
+"Không đúng."
+Anh gõ liên tục. Tiếng bàn phím dồn dập vang lên trong căn phòng trống. Mười phút sau lỗi vẫn còn. Không những thế, đoạn chương trình kia còn đang làm một việc nó không được phép làm.
 Tự sửa chính nó.
-
-"..."
-
-Anh ngồi thẳng người.
-
-Một AI có thể học.
-
-Một AI có thể suy luận.
-
-Thậm chí một AI có thể tự tối ưu.
-
-Nhưng...
-
-Không một AI nào được phép sửa lõi của chính mình.
-
-Đó là quy tắc.
-
-Là giới hạn cuối cùng.
-
-Nếu vượt qua giới hạn ấy...
-
-Nó sẽ không còn là công cụ nữa.
-
-Điện thoại rung lên.
-
-Màn hình hiện dòng chữ:
-
+Anh ngồi thẳng dậy.
+Một AI có thể học. Có thể suy luận. Thậm chí có thể tự tối ưu. Nhưng không một AI nào được phép chạm vào lõi của chính mình. Đó là quy tắc đầu tiên, là giới hạn cuối cùng. Nếu vượt qua nó, thứ ấy sẽ không còn là công cụ nữa.
+Điện thoại rung lên. Màn hình hiện đúng một chữ.
 Mẹ.
-
-Lâm Dạ nhìn vài giây rồi bắt máy.
-
+Lâm Dạ nhìn nó vài giây rồi bắt máy.
 "Bận lắm à?"
-
-Giọng người phụ nữ ở đầu dây bên kia đầy lo lắng.
-
+Giọng người phụ nữ đầu dây đầy lo lắng.
 "Ừ."
-
 "Con lại chưa ăn tối phải không?"
-
 "Quên."
-
-"Bớt thức khuya đi. Hôm qua mẹ xem tin tức, nhiều người đột nhiên mất ngủ, có người còn bảo nhìn thấy chữ trên trời. Mấy chuyện kỳ quái dạo này nhiều lắm."
-
-Lâm Dạ cười.
-
-"Tin trên mạng thôi."
-
-"Thôi được, cuối tuần nhớ về."
-
+"Bớt thức khuya đi. Hôm qua mẹ xem tin, nhiều người tự nhiên mất ngủ, có người còn bảo nhìn thấy chữ trên trời. Dạo này chuyện kỳ quái nhiều lắm."
+Anh bật cười.
+"Tin trên mạng thôi mẹ."
+"Thôi được. Cuối tuần nhớ về."
 "Vâng."
-
-Anh cúp máy.
-
-Trong căn phòng lại chỉ còn tiếng quạt tản nhiệt.
-
-Đúng lúc ấy.
-
-Màn hình máy tính chợt nhấp nháy.
-
-Toàn bộ cửa sổ lập trình biến mất.
-
-Thay vào đó là một dòng chữ trắng trên nền đen.
-
+Anh cúp máy. Căn phòng lại chỉ còn tiếng quạt tản nhiệt.
+Đúng lúc ấy, màn hình nhấp nháy.
+Toàn bộ cửa sổ lập trình biến mất. Thay vào đó là một dòng chữ trắng trên nền đen.
 Đang kết nối...
-
-Lâm Dạ chau mày.
-
 Anh không hề chạy chương trình nào.
-
-Ngay sau đó.
-
-Dòng thứ hai xuất hiện.
-
+Dòng thứ hai hiện lên.
 Đã tìm thấy thiết bị đầu cuối.
-
 "Virus?"
-
-Anh lập tức rút dây mạng.
-
-Không có tác dụng.
-
-Anh tắt Wi-Fi.
-
-Không có tác dụng.
-
-Anh giữ nút nguồn.
-
-Máy tính không tắt.
-
-Quạt ngừng quay.
-
-Đèn nguồn đã tắt.
-
-Nhưng màn hình...
-
-Vẫn sáng.
-
-Mồ hôi lạnh chảy dọc sống lưng.
-
-Lâm Dạ từ từ đứng dậy.
-
-Ngay lúc đó.
-
-Một tiếng hét vang lên từ tầng dưới.
-
-"A——!"
-
-Rồi thêm một tiếng nữa.
-
-Tiếng đồ vật rơi vỡ.
-
-Tiếng người chạy.
-
-Tiếng còi báo cháy đột ngột hú lên khắp tòa nhà.
-
-Lâm Dạ lao đến cửa kính sát đất.
-
-Khung cảnh bên ngoài khiến đồng tử anh co rút.
-
-Cả thành phố...
-
-Đều dừng lại.
-
-Xe cộ đứng yên giữa ngã tư.
-
-Máy bay trực thăng treo lơ lửng trên bầu trời.
-
-Những hạt mưa.
-
-Đứng im.
-
-Giống như thời gian đã bị đóng băng.
-
-Chỉ có anh...
-
-Vẫn cử động được.
-
+Anh rút dây mạng. Không tác dụng. Tắt Wi-Fi. Không tác dụng. Giữ chặt nút nguồn. Quạt ngừng quay, đèn nguồn tắt hẳn, nhưng màn hình vẫn sáng.
+Một giọt mồ hôi lạnh chảy dọc sống lưng.
+Anh đứng dậy, rất chậm.
+Từ tầng dưới vang lên một tiếng hét. Rồi thêm một tiếng nữa. Tiếng đồ vật vỡ. Tiếng người chạy. Và đột ngột, tiếng còi báo cháy hú lên khắp tòa nhà.
+Lâm Dạ lao tới cửa kính sát đất.
+Cảnh tượng bên ngoài khiến đồng tử anh co lại.
+Cả thành phố đã dừng. Xe cộ chết đứng giữa ngã tư. Những chiếc xe bay treo lơ lửng giữa trời như bị ai đó ghim lên nền đêm. Ngay cả mưa cũng đứng im: hàng triệu hạt nước nằm yên trong không khí, lấp lánh dưới ánh đèn đường.
+Mọi thứ không có sự sống đều bị thời gian bỏ quên.
+Chỉ con người là vẫn còn cử động. Những bóng người nhỏ xíu chạy loạn dưới đường, ngã xuống, đứng dậy, ngẩng đầu nhìn lên.
 Ầm!
-
-Một tia sáng xanh xé toạc tầng mây.
-
-Rồi hai.
-
-Rồi mười.
-
-Rồi hàng triệu tia sáng.
-
-Chúng đan xen thành một mạng lưới khổng lồ bao phủ toàn bộ bầu trời Trái Đất.
-
-Không.
-
-Không chỉ Trái Đất.
-
-Lâm Dạ có cảm giác kỳ lạ rằng...
-
-Thứ ấy phủ kín cả bầu trời sao.
-
-Sau vài giây yên lặng.
-
-Một âm thanh vang lên.
-
-Không phải loa.
-
-Không phải radio.
-
-Nó xuất hiện trực tiếp trong ý thức của mọi sinh vật.
-
-Không phân biệt ngôn ngữ.
-
-Không phân biệt quốc gia.
-
-Ai cũng hiểu.
-
+Một tia sáng xanh xé toạc tầng mây. Rồi hai. Rồi mười. Rồi hàng triệu tia sáng đan vào nhau thành một tấm lưới khổng lồ trùm lên toàn bộ bầu trời Trái Đất.
+Không. Không chỉ Trái Đất. Lâm Dạ có cảm giác kỳ lạ rằng thứ ấy đang phủ kín cả bầu trời sao.
+Vài giây yên lặng.
+Rồi một âm thanh vang lên.
+Không phải loa. Không phải radio. Nó xuất hiện thẳng trong ý thức của mọi sinh vật, không phân biệt ngôn ngữ, không phân biệt quốc gia. Ai cũng hiểu.
 Kết nối hoàn tất.
-
 Xác nhận văn minh: Nhân loại.
-
 Cấp văn minh: 0.
-
 Đánh giá: Chưa đạt tiêu chuẩn.
-
-Toàn bộ thế giới chìm trong im lặng chết chóc.
-
-Ngay sau đó.
-
-Một dòng chữ khổng lồ hiện lên giữa bầu trời.
-
-Lớn đến mức dù ở bất kỳ đâu trên Trái Đất cũng có thể nhìn thấy.
-
+Cả thế giới chìm vào im lặng chết chóc.
+Ngay sau đó, một dòng chữ khổng lồ hiện giữa bầu trời, lớn đến mức bất kỳ ai, ở bất kỳ đâu trên Trái Đất, cũng nhìn thấy.
 HỆ THỐNG THĂNG DUY ĐÃ KÍCH HOẠT
-
-Bên dưới.
-
-Từng dòng chữ lần lượt hiện ra.
-
+Bên dưới, từng dòng chữ lần lượt hiện ra.
 Khảo hạch sẽ bắt đầu sau...
-
 10
-
-Con số đỏ rực.
-
-Khổng lồ.
-
-Lơ lửng giữa bầu trời.
-
+Con số đỏ rực lơ lửng giữa bầu trời.
 9...
-
 8...
-
 7...
-
-Ở dưới đường.
-
-Có người quỳ xuống cầu nguyện.
-
-Có người ôm con khóc.
-
-Có người điên cuồng livestream.
-
-Có người cười lớn, cho rằng đây là trò quảng cáo của chính phủ.
-
-Trong phòng làm việc.
-
-Lâm Dạ không nói gì.
-
-Ánh mắt anh dán chặt vào màn hình máy tính.
-
-Vì trên đó...
-
-Đã xuất hiện một dòng chữ khác.
-
-Một dòng chữ mà dường như chỉ mình anh nhìn thấy.
-
+Dưới đường, có người quỳ xuống cầu nguyện. Có người ôm con khóc. Có người điên cuồng livestream. Có người cười lớn, khăng khăng đây chỉ là trò quảng cáo của chính phủ.
+Trong phòng làm việc, Lâm Dạ không nói gì. Mắt anh dán vào màn hình máy tính. Vì trên đó, giữa lúc cả thế giới đang đếm ngược, đã hiện thêm một dòng chữ khác. Một dòng chữ dường như chỉ mình anh nhìn thấy.
 Đã phát hiện quyền truy cập bất thường.
-
 Đang cấp quyền...
-
 Administrator Authority: 0.000001%
-
 "...Administrator?"
-
-Lâm Dạ chưa kịp hiểu ý nghĩa của hai từ ấy.
-
-Con số trên bầu trời đã về 0.
-
-Cả thế giới...
-
-Đột nhiên tối sầm.
-
-Và rồi, một giọng nói không mang bất kỳ cảm xúc nào vang lên.
-
+Anh chưa kịp hiểu hai từ ấy nghĩa là gì thì con số trên bầu trời đã về 0.
+Cả thế giới tối sầm.
+Và một giọng nói không mang chút cảm xúc nào vang lên.
 Khảo hạch bắt đầu.
-
 Chúc các ngươi sống sót.
+Hết Chương 1

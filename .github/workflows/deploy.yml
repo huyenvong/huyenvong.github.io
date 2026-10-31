@@ -1,6 +1,12 @@
 name: Xây dựng và xuất bản Huyền Võng
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+      - ".gitignore"
   workflow_dispatch:
 
 permissions:

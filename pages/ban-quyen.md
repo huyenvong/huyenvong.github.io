@@ -3,11 +3,11 @@ title: Bản quyền
 description: Thông tin về quyền sở hữu nội dung, hình ảnh và mã nguồn của website Huyền Võng.
 ---
 
-_Cập nhật lần cuối: ngày 8 tháng 8 năm 2026._
+_Cập nhật lần cuối: ngày 31 tháng 10 năm 2026._
 
 ## Nội dung truyện
 
-Trừ khi có ghi chú khác, các tác phẩm và chương truyện được đăng trên Huyền Võng thuộc quyền của tác giả hoặc chủ sở hữu được ghi trên trang giới thiệu của từng tác phẩm.
+Các tác phẩm và chương truyện được đăng trên Huyền Võng do Huyền Võng sáng tác, bản quyền thuộc về tác giả Huyền Võng. Nếu một tác phẩm thuộc về chủ sở hữu khác, thông tin đó sẽ được ghi rõ trên trang giới thiệu của tác phẩm.
 
 Việc nội dung có thể được đọc miễn phí trên website không đồng nghĩa với việc nội dung đó được tự do sao chép, đăng lại, chuyển thể, kinh doanh hoặc phân phối ở nơi khác.
 

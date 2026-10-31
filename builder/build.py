@@ -418,6 +418,40 @@ def short_description(value, maximum=160):
     return shortened.rstrip(" ,.;:") + "…"
 
 
+def chapter_excerpt(markdown_text, maximum=155):
+    cleaned_lines = []
+
+    for raw_line in str(markdown_text or "").splitlines():
+        line = raw_line.strip()
+
+        if not line or re.fullmatch(r"[-*_\s]{3,}", line):
+            continue
+
+        line = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", line)
+        line = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", line)
+        line = re.sub(r"^#{1,6}\s*", "", line)
+        line = re.sub(r"^>\s*", "", line)
+        line = re.sub(r"[*`]+", "", line).strip()
+
+        if line:
+            cleaned_lines.append(line)
+
+    # Ưu tiên các câu đủ dài; bỏ qua dòng quá ngắn như "Thình thịch."
+    long_lines = [
+        line for line in cleaned_lines if len(line.split()) >= 4
+    ]
+    chosen_lines = long_lines or cleaned_lines
+    collected = []
+
+    for line in chosen_lines:
+        collected.append(line)
+
+        if len(" ".join(collected)) >= maximum:
+            break
+
+    return short_description(" ".join(collected), maximum)
+
+
 def count_words(value):
     return len(
         re.findall(r"\b[\wÀ-ỹ]+\b", str(value or ""), re.UNICODE)
@@ -927,7 +961,51 @@ def create_book_card(site, book):
 """.strip()
 
 
-def create_home(site, templates, books):
+def create_upcoming_section(books):
+    if not books:
+        return ""
+
+    items = []
+
+    for book in books:
+        genres = ", ".join(book.get("genres", []))
+        description = short_description(
+            book.get("description", ""),
+            140,
+        )
+
+        items.append(
+            '<li class="upcoming-item">'
+            f'<h3 class="upcoming-title">'
+            f'{html.escape(book["title"])}</h3>'
+            f'<p class="upcoming-meta">{html.escape(genres)}</p>'
+            f'<p class="upcoming-description">'
+            f"{html.escape(description)}</p>"
+            "</li>"
+        )
+
+    return (
+        '<section class="section" '
+        'aria-labelledby="upcoming-heading">'
+        '<div class="section-header"><div>'
+        '<h2 class="section-title" id="upcoming-heading">'
+        "Sắp ra mắt</h2>"
+        '<p class="section-description">'
+        "Những tác phẩm đang được chuẩn bị. "
+        "Chương đầu tiên sẽ sớm xuất hiện tại đây."
+        "</p></div></div>"
+        '<ul class="upcoming-list">'
+        + "".join(items)
+        + "</ul></section>"
+    )
+
+
+def create_home(site, templates, all_books):
+    books = [book for book in all_books if book["chapters"]]
+    upcoming_books = [
+        book for book in all_books if not book["chapters"]
+    ]
+    upcoming_section = create_upcoming_section(upcoming_books)
     book_cards = "\n".join(
         create_book_card(site, book) for book in books
     )
@@ -946,6 +1024,7 @@ def create_home(site, templates, books):
             "site_description": html.escape(site["description"]),
             "book_count": len(books),
             "book_cards": book_cards,
+            "upcoming_section": upcoming_section,
         },
     )
 
@@ -1384,9 +1463,11 @@ def create_chapter_page(
         f'data-chapter-number="{chapter["number"]}"'
     )
 
-    meta_description = short_description(
-        f"{chapter['title']} thuộc truyện {book['title']} "
-        f"của {authors_text}. Đọc truyện tại {site['name']}."
+    meta_description = chapter_excerpt(chapter["content"]) or (
+        short_description(
+            f"{chapter['title']} thuộc truyện {book['title']} "
+            f"của {authors_text}. Đọc truyện tại {site['name']}."
+        )
     )
 
     html_output = render_base(

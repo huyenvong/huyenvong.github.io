@@ -453,6 +453,14 @@ def render_base(base_template, site, values):
         ),
         "copyright_start_year": site["copyright_start_year"],
         "current_year": date.today().year,
+        "copyright_years": (
+            str(site["copyright_start_year"])
+            if int(site["copyright_start_year"]) >= date.today().year
+            else (
+                f'{site["copyright_start_year"]}–'
+                f'<span data-current-year>{date.today().year}</span>'
+            )
+        ),
         "robots": "index, follow",
         "og_type": "website",
         "social_image_alt": html.escape(
@@ -869,6 +877,17 @@ def create_book_card(site, book):
         ]
     )
 
+    latest_update = ""
+
+    if book["chapters"]:
+        latest_update = (
+            "<span>Cập nhật "
+            + html.escape(
+                display_date(book["chapters"][-1]["date"])
+            )
+            + "</span>"
+        )
+
     return f"""
 <article
   class="book-card"
@@ -901,6 +920,7 @@ def create_book_card(site, book):
     <p class="book-card-meta">
       <span>{len(book['chapters'])} chương</span>
       <span>{html.escape(book['status'])}</span>
+      {latest_update}
     </p>
   </div>
 </article>

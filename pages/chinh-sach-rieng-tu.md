@@ -3,7 +3,7 @@ title: Chính sách riêng tư
 description: Chính sách về dữ liệu và quyền riêng tư khi sử dụng website Huyền Võng.
 ---
 
-_Cập nhật lần cuối: ngày 8 tháng 8 năm 2026._
+_Cập nhật lần cuối: ngày 31 tháng 10 năm 2026._
 
 ## Dữ liệu Huyền Võng lưu trên thiết bị
 
@@ -44,11 +44,17 @@ Website được lưu trữ bằng GitHub Pages. Nhà cung cấp dịch vụ lư
 
 Bạn có thể tham khảo [Tuyên bố quyền riêng tư của GitHub](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Liên kết bên ngoài
+## Liên kết bên ngoài và liên kết affiliate
 
 Website có thể chứa liên kết đến trang của bên thứ ba. Khi truy cập các liên kết đó, chính sách riêng tư của bên thứ ba sẽ được áp dụng.
 
+Cụ thể, nút “Chương sau” tại các chương truyện có thể mở trang Shopee ở một tab mới thông qua liên kết affiliate. Khi bạn truy cập Shopee, Shopee có thể sử dụng cookie hoặc công nghệ tương tự để ghi nhận lượt truy cập và giao dịch theo chính sách riêng của họ. Chi tiết về cách hoạt động của liên kết này có tại trang [Tiết lộ affiliate](/tiet-lo-affiliate/).
+
 Huyền Võng không kiểm soát cách các website bên ngoài xử lý dữ liệu.
+
+## Ủng hộ tác giả
+
+Tại cuối mỗi chương có mã QR để bạn tự nguyện ủng hộ tác giả. Việc chuyển khoản được thực hiện hoàn toàn trong ứng dụng ngân hàng của bạn. Website không xử lý thanh toán và không thu thập thông tin tài khoản hay thông tin thanh toán của người đọc.
 
 ## Thay đổi chính sách
 

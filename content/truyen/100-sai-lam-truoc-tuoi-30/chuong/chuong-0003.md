@@ -1,6 +1,7 @@
 ---
 title: "Chương 3: Tâm Lý & Bản Thân – Những Bóng Ma Trong Tưởng Tượng"
 genre: "Kỹ năng sống, Trưởng thành, Tản văn"
+date: 2026-11-01
 published: true
 ---
 

@@ -1,9 +1,9 @@
 ---
-## title: "Chương 18: Tháp Tín Hiệu"
+title: "Chương 18: Tháp Tín Hiệu"
 description: "Trận đối đầu trên đỉnh tháp phát sóng giữa làn mưa bão, nơi cuộc gặp gỡ giữa hai cha con giải mã toàn bộ bản chất của âm mưu tài chính Thiên Hoàng."
 date: 2026-08-18
 published: true
-
+---
 # Chương 18: Tháp Tín Hiệu
 
 13 giờ 51 phút.

@@ -1,6 +1,7 @@
 ---
 title: "Chương 5: Trưởng Thành & Triết Lý Sống – Hành Trình Chấp Nhận"
 genre: "Kỹ năng sống, Trưởng thành, Tản văn"
+date: 2026-11-01
 published: true
 ---
 

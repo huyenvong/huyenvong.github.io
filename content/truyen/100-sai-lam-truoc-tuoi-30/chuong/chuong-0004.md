@@ -1,6 +1,7 @@
 ---
 title: "Chương 4: Lối Sống & Sức Khỏe – Những Khoản Nợ Tương Lai"
 genre: "Kỹ năng sống, Trưởng thành, Tản văn"
+date: 2026-11-01
 published: true
 ---
 

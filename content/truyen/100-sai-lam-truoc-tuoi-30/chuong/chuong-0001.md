@@ -1,6 +1,7 @@
 ---
 title: "Chương 1: Sự Nghiệp & Tài Chính – Những Cú Thấp Thỏm Đầu Đời"
 genre: "Kỹ năng sống, Trưởng thành, Tản văn"
+date: 2026-11-01
 published: true
 ---
 

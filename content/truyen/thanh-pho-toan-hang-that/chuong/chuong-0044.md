@@ -3,6 +3,7 @@ title: "Chương 44: Mặt Trời Trên Tân Phồn Vinh"
 description: "Cái kết trọn vẹn cho vụ án toàn cầu và bình minh mới của sự thật tại Tân Phồn Vinh."
 date: 2026-08-23
 published: true
+---
 
 # Chương 44: Mặt Trời Trên Tân Phồn Vinh
 

@@ -11,11 +11,11 @@
     "Trưởng thành",
     "Kỹ năng sống"
   ],
-  "status": "Sắp ra mắt",
+  "status": "Đã hoàn thành",
   "language": "vi",
   "cover": "images/cover.png",
   "published_date": "2026-08-08",
-  "updated_date": "2026-08-08",
+  "updated_date": "2026-11-01",
   "order": 2,
   "featured": true,
   "published": true

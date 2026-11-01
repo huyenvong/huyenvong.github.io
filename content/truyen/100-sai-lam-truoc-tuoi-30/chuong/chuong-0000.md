@@ -1,6 +1,9 @@
-\---
-
-# LỜI NÓI ĐẦU
+---
+title: "LỜI NÓI ĐẦU"
+date: 2026-11-01
+published: true
+---
+LỜI NÓI ĐẦU
 
 > \*"Một hành trình nhìn lại những lựa chọn sai, bài học đắt giá và trải nghiệm trưởng thành trước tuổi ba mươi. Không phải để tiếc nuối, mà để ôm lấy phiên bản ngốc nghếch nhưng chân thành của chính mình ngày hôm qua."\*
 

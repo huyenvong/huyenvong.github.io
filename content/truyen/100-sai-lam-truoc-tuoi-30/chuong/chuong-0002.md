@@ -1,6 +1,7 @@
 ---
 title: "Chương 2: Tình Yêu & Các Mối Quan Hệ – Những Lần Mất Phương Hướng"
 genre: "Kỹ năng sống, Trưởng thành, Tản văn"
+date: 2026-11-01
 published: true
 ---
 
